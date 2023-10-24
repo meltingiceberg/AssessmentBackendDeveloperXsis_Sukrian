@@ -5,6 +5,8 @@ VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssessmentBackendDeveloperXsis_Sukrian", "AssessmentBackendDeveloperXsis_Sukrian.csproj", "{52354C17-F762-47C0-BC12-CA00087D7F58}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ABDX_Tests", "ABDX_Tests\ABDX_Tests.csproj", "{92201E85-CF46-4461-ACF6-206B55D45855}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{52354C17-F762-47C0-BC12-CA00087D7F58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52354C17-F762-47C0-BC12-CA00087D7F58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52354C17-F762-47C0-BC12-CA00087D7F58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92201E85-CF46-4461-ACF6-206B55D45855}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92201E85-CF46-4461-ACF6-206B55D45855}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92201E85-CF46-4461-ACF6-206B55D45855}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92201E85-CF46-4461-ACF6-206B55D45855}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
