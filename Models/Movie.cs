@@ -17,6 +17,5 @@ namespace AssessmentBackendDeveloperXsis_Sukrian.Models
         public DateTime CreatedAt { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime UpdatedAt { get; set; }
-        public Movie() { }
     }
 }
