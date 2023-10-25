@@ -1,5 +1,8 @@
 ﻿using AssessmentBackendDeveloperXsis_Sukrian.DTO;
 using AssessmentBackendDeveloperXsis_Sukrian.Entities;
+using AssessmentBackendDeveloperXsis_Sukrian.Request;
+using AssessmentBackendDeveloperXsis_Sukrian.Services;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,11 +13,13 @@ namespace AssessmentBackendDeveloperXsis_Sukrian.Controllers
     public class MoviesController : ControllerBase
     {
         private readonly ILogger<MoviesController> _logger;
-        private readonly MoviesdbContext _dbContext;
-        public MoviesController(ILogger<MoviesController> logger, MoviesdbContext dbContext)
+        private readonly MovieService _service;
+        private readonly IMapper _mapper;
+        public MoviesController(ILogger<MoviesController> logger, MovieService service, IMapper mapper)
         {
             _logger = logger;
-            _dbContext = dbContext;
+            _service = service;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -22,7 +27,7 @@ namespace AssessmentBackendDeveloperXsis_Sukrian.Controllers
         {
             try
             {
-                var movies = _dbContext.Movies;
+                IEnumerable<MovieDTO> movies = _service.SelectAll();
                 return Ok(movies);
             }
             catch (Exception ex)
@@ -37,7 +42,11 @@ namespace AssessmentBackendDeveloperXsis_Sukrian.Controllers
         {
             try
             {
-                var movie = _dbContext.Movies.Where(c => c.Id == id);
+                MovieDTO? movie = _service.Select(id);
+                if(movie == null)
+                {
+                    return NotFound();
+                }
                 return Ok(movie);
             }
             catch (Exception ex)
@@ -48,12 +57,62 @@ namespace AssessmentBackendDeveloperXsis_Sukrian.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(MovieDTO movieDTO) 
+        public IActionResult Post([FromBody]AddMovieRequest request) 
         {
             try
             {
+                if (ModelState.IsValid)
+                {
+                    _service.Add(_mapper.Map<MovieDTO>(request));
+                    return Ok();
+                }
+                else 
+                {
+                    return BadRequest(ModelState);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return BadRequest();
+            }
+        }
 
-                return Ok();
+        [HttpPatch("{id}")]
+        public IActionResult Patch(int id, [FromBody]AddMovieRequest request)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    MovieDTO movieDTO = _mapper.Map<MovieDTO>(request);
+                    movieDTO.Id = id;
+                    _service.Update(movieDTO);
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return BadRequest();
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                MovieDTO? movie = _service.Delete(id);
+                if (movie == null)
+                {
+                    return NotFound();
+                }
+                return Ok(movie);
             }
             catch (Exception ex)
             {

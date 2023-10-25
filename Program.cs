@@ -1,4 +1,5 @@
 using AssessmentBackendDeveloperXsis_Sukrian.Entities;
+using AssessmentBackendDeveloperXsis_Sukrian.Services;
 using Microsoft.EntityFrameworkCore;
 using MySql.EntityFrameworkCore.Extensions;
 
@@ -17,6 +18,8 @@ builder.Services.AddEntityFrameworkMySQL()
     {
         options.UseMySQL(builder.Configuration.GetConnectionString("MoviesDB")!);
     });
+
+builder.Services.AddScoped<MovieService>();
 
 var app = builder.Build();
 
