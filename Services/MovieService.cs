@@ -50,7 +50,7 @@ namespace AssessmentBackendDeveloperXsis_Sukrian.Services
 
         public IEnumerable<MovieDTO> SelectAll()
         {
-            List<MovieDTO> dto = new List<MovieDTO>();
+            List<MovieDTO> dto = new();
             List<Movie> movies = _dbContext.Movies.ToList();
             foreach (var movie in movies)
             {

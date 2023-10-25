@@ -63,8 +63,8 @@ namespace AssessmentBackendDeveloperXsis_Sukrian.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    _service.Add(_mapper.Map<MovieDTO>(request));
-                    return Ok();
+                    MovieDTO movieDTO = _service.Add(_mapper.Map<MovieDTO>(request));
+                    return Ok(movieDTO);
                 }
                 else 
                 {
@@ -87,8 +87,12 @@ namespace AssessmentBackendDeveloperXsis_Sukrian.Controllers
                 {
                     MovieDTO movieDTO = _mapper.Map<MovieDTO>(request);
                     movieDTO.Id = id;
-                    _service.Update(movieDTO);
-                    return Ok();
+                    MovieDTO? res = _service.Update(movieDTO);
+                    if(res == null)
+                    {
+                        return NotFound();
+                    }
+                    return Ok(res);
                 }
                 else
                 {
