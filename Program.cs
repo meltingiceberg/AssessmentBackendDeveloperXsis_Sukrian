@@ -1,3 +1,7 @@
+using AssessmentBackendDeveloperXsis_Sukrian.Entities;
+using Microsoft.EntityFrameworkCore;
+using MySql.EntityFrameworkCore.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +10,13 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(typeof(Program));
+
+builder.Services.AddEntityFrameworkMySQL()
+    .AddDbContext<MoviesdbContext>(options =>
+    {
+        options.UseMySQL(builder.Configuration.GetConnectionString("MoviesDB")!);
+    });
 
 var app = builder.Build();
 
