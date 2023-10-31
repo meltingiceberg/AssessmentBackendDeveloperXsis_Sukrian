@@ -1,5 +1,6 @@
 ﻿using AssessmentBackendDeveloperXsis_Sukrian.DTO;
 using AssessmentBackendDeveloperXsis_Sukrian.Entities;
+using AssessmentBackendDeveloperXsis_Sukrian.Request;
 using AutoMapper;
 
 namespace AssessmentBackendDeveloperXsis_Sukrian.Services
@@ -76,6 +77,17 @@ namespace AssessmentBackendDeveloperXsis_Sukrian.Services
             {
                 return null;
             }
+        }
+
+        public IEnumerable<MovieDTO> SearchByTitle(SearchByTitleRequest req)
+        {
+            List<MovieDTO> dto = new();
+            List<Movie> movies = _dbContext.Movies.Where(o => o.Title.ToLower().Contains(req.Title.ToLower())).ToList();
+            foreach (var movie in movies)
+            {
+                dto.Add(_mapper.Map<MovieDTO>(movie));
+            }
+            return dto;
         }
     }
 }

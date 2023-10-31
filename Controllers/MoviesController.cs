@@ -124,5 +124,24 @@ namespace AssessmentBackendDeveloperXsis_Sukrian.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpPost("search_by_title")]
+        public IActionResult SearchByTitle([FromBody]SearchByTitleRequest req)
+        {
+            try
+            {
+                IEnumerable<MovieDTO> movies = _service.SearchByTitle(req);
+                if (movies.Count() < 1)
+                {
+                    return NotFound();
+                }
+                return Ok(movies);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return BadRequest();
+            }
+        }
     }
 }
